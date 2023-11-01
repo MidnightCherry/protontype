@@ -22,6 +22,7 @@ Route::get('/', function () {
 */
 
 Route::get('/', [PagesController::class, 'index']);
+Route::get('/car', [PagesController::class, 'car']);
 
 
 Route::get('/dashboard', function () {

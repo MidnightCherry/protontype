@@ -1,0 +1,368 @@
+code_dump
+
+//guest.blade.php
+
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
+
+        <title>{{ config('app.name', 'Laravel') }}</title>
+
+        <!-- Fonts -->
+        <link rel="preconnect" href="https://fonts.bunny.net">
+        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+
+        <!-- Scripts -->
+        @vite(['resources/css/app.css', 'resources/js/app.js'])
+    </head>
+    <body class="font-sans text-gray-900 antialiased">
+        <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100 dark:bg-gray-900">
+            <div>
+                <a href="/">
+                    <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
+                </a>
+            </div>
+
+            <!--<div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white dark:bg-gray-800 shadow-md overflow-hidden sm:rounded-lg">-->
+                {{ $slot }}
+            </div>
+        </div>
+    </body>
+</html>
+
+//home.blade.php 
+<x-guest-layout>
+    <div class="relative sm:flex sm:justify-center sm:items-center min-h-screen bg-dots-darker bg-center bg-gray-100 dark:bg-dots-lighter dark:bg-gray-900 selection:bg-red-500 selection:text-white">
+        @if (Route::has('login'))
+            <div class="sm:fixed sm:top-0 sm:right-0 p-6 text-right z-10">
+                @auth
+                    <a href="{{ url('/dashboard') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Dashboard</a>
+                @else
+                    <a href="{{ route('login') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Log in</a>
+
+                    @if (Route::has('register'))
+                        <a href="{{ route('register') }}" class="ml-4 font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Register</a>
+                    @endif
+                @endauth
+            </div>
+        @endif
+    </div>
+</x-guest-layout>
+
+<x-guest-layout>
+    <header class="bg-current-color text-white py-4 px-6 flex items-center justify-between">
+        <div class="flex items-center">
+            <img src="{{ asset('images/proton-logo.png') }}" alt="Logo" class="h-10 w-auto">
+        </div>
+        <div class="space-x-4">
+            @auth
+                <a href="{{ url('/dashboard') }}" class="hover:text-gray-300">Dashboard</a>
+            @else
+                <a href="{{ route('login') }}" class="hover:text-gray-300">Log in</a>
+
+                @if (Route::has('register'))
+                    <a href="{{ route('register') }}" class="hover:text-gray-300">Register</a>
+                @endif
+            @endauth
+        </div>
+    </header>
+    
+    <main class="bg-white p-6">
+        <!-- Main content goes here -->
+    </main>
+</x-guest-layout>
+
+
+
+//carpage
+<!DOCTYPE html> 
+<html lang="en-GB" class="no-js"> 	
+    <head> 		
+        <meta charset="UTF-8"> 		
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1" /> 		
+        <link rel="profile" href=""> 		
+        <title>proton-type</title> 
+    </head> 	
+    
+    <body class="">
+        <!--<div class="row">
+            <div class="header-logo">
+                <a class="logo-light" href="./index.html">
+                    <img src="{{ asset('images/proton-logo.png') }}">
+                </a>
+            </div>
+            <div class="menu-right-align accordion-menu">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                <div id="mega-menu" class="navbar-collapse collapse">
+                    <ul id="menu-main_menu" class="mega-menu-ul nav navbar-nav default-menu-wrapper">
+                        <li id="menu-item-195" class="menu-item">
+                            <a href="./index.html" aria-current="page">Homepage</a> 
+                            <ul class="sub-menu"> 	
+                                <li id="menu-item-277" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-277">
+                                    <a href="http://proton-type.test/homepage/x90/">X90</a>
+                                </li> 	
+                                <li id="menu-item-276" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-276">
+                                    <a href="http://proton-type.test/homepage/x70/">X70</a>
+                                </li> 	
+                                <li id="menu-item-275" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-275">
+                                    <a href="./homepage/x50.html">X50</a>
+                                </li> 	
+                                <li id="menu-item-274" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-274">
+                                    <a href="http://proton-type.test/homepage/saga/">Saga</a>
+                                </li> 	
+                                <li id="menu-item-271" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-271">
+                                    <a href="http://proton-type.test/homepage/iriz/">Iriz</a>
+                                </li> 	
+                                <li id="menu-item-272" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-272">
+                                    <a href="http://proton-type.test/homepage/exora/">Exora</a>
+                                </li> 	
+                                <li id="menu-item-273" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-273">
+                                    <a href="http://proton-type.test/homepage/persona/">Persona</a>
+                                </li>
+                            </ul> 
+                        </li> 
+                        <li id="menu-item-208" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-208">
+                            <a href="./tester-page.html">Tester Page</a>
+                        </li> 
+                    </ul>
+                    </div>
+                </div>
+            </div>
+        </div>-->
+        <div class="bg-black text-white">
+            <div class="container mx-auto py-4 flex items-center justify-between">
+                <!-- Logo on the left -->
+                <div class="header-logo">
+                    <a class="logo-light" href="./index.html">
+                        <img src="{{ asset('images/proton-logo.png') }}" class="h-12 w-auto">
+                    </a>
+                </div>
+        
+                <!-- Menu on the right -->
+                <div class="menu-right-align accordion-menu">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                    </div>
+                    <div id="mega-menu" class="navbar-collapse collapse">
+                        <ul id="menu-main_menu" class="mega-menu-ul nav navbar-nav default-menu-wrapper">
+                            <li id="menu-item-195" class="menu-item">
+                                <a href="./index.html" aria-current="page">Homepage</a>
+                                <ul class="sub-menu">
+                                    <!-- Your submenu items here -->
+                                </ul>
+                            </li>
+                            <li id="menu-item-208" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-208">
+                                <a href="./tester-page.html">Tester Page</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+                
+        <div data-elementor-type="wp-page" data-elementor-id="179" class="elementor elementor-179"> 							
+            <div class="elementor-element elementor-element-5faf255 e-flex e-con-boxed wpr-particle-no wpr-jarallax-no wpr-parallax-no wpr-sticky-section-no e-con e-parent"> 					
+                <div class="e-con-inner"> 				
+                    <div class="elementor-element elementor-element-7ef49a8 elementor-widget elementor-widget-spacer" data-id="7ef49a8" data-element_type="widget" data-widget_type="spacer.default"> 				
+                        <div class="elementor-widget-container"> 				
+                            <div class="elementor-spacer"> 			
+                                <div class="elementor-spacer-inner"></div> 		
+                            </div> 				
+                        </div> 				
+                    </div> 					
+                </div> 				
+            </div> 		
+            <div> 				
+                <div class="elementor-element elementor-element-b20edd0 wpr-dual-heading-default elementor-widget elementor-widget-wpr-dual-color-heading" data-id="b20edd0" data-element_type="widget" data-widget_type="wpr-dual-color-heading.default"> 			
+                    <div class="elementor-widget-container"> 						
+                        <div class="wpr-dual-heading-wrap"> 				
+                            <div class="wpr-dual-title-wrap"> 					
+                                <h2 class="wpr-dual-title"> 											
+                                    <span class="first">Proton</span>
+                                        <span class="second">X90</span> 										
+                                </h2> 				
+                            </div> 				 									
+                        <div class="wpr-dual-heading-description" >INTELLIGENCE THAT EMPOWERS</div> 				 				 			
+                    </div> 				
+                </div> 				
+            </div> 				
+            <div class="elementor-element elementor-element-e2c0583 elementor-widget-divider--view-line elementor-widget elementor-widget-divider" data-id="e2c0583" data-element_type="widget" data-widget_type="divider.default"> 				
+                <div class="elementor-widget-container"> 			
+                    <div class="elementor-divider"> 			
+                        <span class="elementor-divider-separator"> 						
+                        </span> 		
+                    </div> 				
+                </div> 				
+            </div> 				
+            <div class="elementor-element elementor-element-9c232a5 elementor-widget elementor-widget-image" data-id="9c232a5" data-element_type="widget" data-widget_type="image.default"> 				
+                <div class="elementor-widget-container"> 												
+                    <img decoding="async" fetchpriority="high" width="1024" height="320" src="./images/2023-10-x90-Side-1-Red-1-1024x320.png" class="attachment-large size-large wp-image-25" alt="" srcset="./images/2023-10-x90-Side-1-Red-1-1024x320.png 1024w, ./images/2023-10-x90-Side-1-Red-1-300x94.png 300w, ./images/2023-10-x90-Side-1-Red-1-768x240.png 768w, ./images/2023-10-x90-Side-1-Red-1.png 1200w" sizes="(max-width: 1024px) 100vw, 1024px" />															
+                </div> 				
+            </div> 				
+            <div class="elementor-element elementor-element-205f0d0 wpr-button-icon-style-inline wpr-button-icon-position-right elementor-widget elementor-widget-wpr-button" data-id="205f0d0" data-element_type="widget" data-widget_type="wpr-button.default"> 				
+                <div class="elementor-widget-container"> 				 			 		 		
+                    <div class="wpr-button-wrap elementor-clearfix"> 		
+                        <a class="wpr-button wpr-button-effect wpr-button-back-pulse" data-text="Go" href="http://proton-type.test/homepage/x90/" target="_blank"> 			 			
+                            <span class="wpr-button-content"> 									
+                                <span class="wpr-button-text">Learn More</span> 								 							
+                            </span> 		
+                        </a>  				
+                    </div> 	 	 			
+                </div> 				
+            </div> 				
+        </div> 		
+        <div class=""> 				
+        <div class="" data-id="b0f1456" data-element_type="widget" data-widget_type="spacer.default"> 				
+            <div class="elementor-widget-container"> 					
+                <div class="elementor-spacer"> 			
+                    <div class="elementor-spacer-inner">
+
+                    </div> 		
+                </div> 				
+            </div> 				
+        </div> 				
+        <div class=""> 				
+            <div class="elementor-widget-container"> 			 		
+                <!-- Advanced Slider --> 		
+                <div class="wpr-advanced-slider-wrap"> 			 			
+                    <div class=""> 				
+                        <div class="">
+                            <div class="wpr-slider-item-bg" style="background-image: url(./images/2023-10-Side-2-X50-Red-1.png)">
+                            </div>
+                            <div class="wpr-cv-container">
+                                <div class="wpr-cv-outer">
+                                    <div class="wpr-cv-inner">
+                                        <div class="wpr-slider-content">
+                                            <div class="wpr-slider-title">
+                                                <h2>Proton X50</h2>
+                                            </div>
+                                            <div class="wpr-slider-btns">
+                                                <a class="wpr-slider-primary-btn" href="./homepage/x50.html" target="_blank">Learn More</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="wpr-slider-item elementor-repeater-item-7eb2607">
+                            <div class="wpr-slider-item-bg" style="background-image: url(./images/2023-10-Side-2-Saga-Red-1.png)">
+                            </div>
+                            <div class="wpr-cv-container">
+                                <div class="wpr-cv-outer">
+                                    <div class="wpr-cv-inner">
+                                        <div class="wpr-slider-content">
+                                            <div class="wpr-slider-title">
+                                                <h2>Proton Saga</h2>
+                                            </div>
+                                            <div class="wpr-slider-btns">
+                                                <a class="wpr-slider-primary-btn" href="http://proton-type.test/homepage/saga" target="_blank">Learn More</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="wpr-slider-item elementor-repeater-item-8353a72">
+                            <div class="wpr-slider-item-bg" style="background-image: url(./images/2023-10-Exora-Side-2-Red.png)">
+                            </div>
+                            <div class="wpr-cv-container">
+                                <div class="wpr-cv-outer">
+                                    <div class="wpr-cv-inner">
+                                        <div class="wpr-slider-content">
+                                            <div class="wpr-slider-title">
+                                                <h2>Proton Exora</h2>
+                                            </div>
+                                            <div class="wpr-slider-btns">
+                                                <a class="wpr-slider-primary-btn" href="http://proton-type.test/homepage/exora" target="_blank">Learn More</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="wpr-slider-item elementor-repeater-item-c51b3d7">
+                            <div class="wpr-slider-item-bg" style="background-image: url(./images/2023-10-Iriz-Side-2-Ruby-Red-1.png)">
+                            </div>
+                            <div class="wpr-cv-container">
+                                <div class="wpr-cv-outer">
+                                    <div class="wpr-cv-inner">
+                                        <div class="wpr-slider-content">
+                                            <div class="wpr-slider-title">
+                                                <h2>Proton Iriz</h2>
+                                                </div>
+                                                <div class="wpr-slider-btns">
+                                                    <a class="wpr-slider-primary-btn" href="http://proton-type.test/homepage/iriz" target="_blank">Learn More</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>			
+                        </div> 						
+                    </div> 				
+                </div> 				
+            </div> 		
+            <div class="elementor-element elementor-element-79da570 e-con-full e-flex wpr-particle-no wpr-jarallax-no wpr-parallax-no wpr-sticky-section-no e-con e-parent"> 				
+            </div> 							
+        </div> 		
+        <footer class="bg-light-gray2 hcode-main-footer"> 	
+
+        </footer> 
+        <div id="bravepop_element_tooltip">
+
+        </div>
+    </body> 
+</html>
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- ... (head content) ... -->
+    <link href="{{ mix('css/app.css') }}" rel="stylesheet">
+</head>
+
+<body>
+    <div class="flex items-center justify-between p-4 bg-black text-white">
+        <!-- Logo and other content -->
+
+        <div class="relative group">
+            <button class="focus:outline-none">
+                <span>Menu</span>
+            </button>
+            <div class="absolute right-0 hidden mt-2 space-y-2 bg-white text-black group-hover:block">
+                <!-- Dropdown menu items -->
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ mix('js/app.js') }}"></script>
+</body>
+
+</html>
+
+
+<div x-data="{ isOpen: false, position: 'right' }" @click.away="isOpen = false">
+    <button @click="isOpen = !isOpen" class="focus:outline-none">Menu</button>
+
+    <div x-show.transition.origin="position === 'right' ? 'right top' : 'left top'"
+        x-placement="position === 'right' ? 'bottom-end' : 'bottom-start'" :class="{ 'right-0': position === 'right', 'left-0': position === 'left' }"
+        class="absolute mt-2 space-y-2 bg-black">
+        <!-- Dropdown menu content goes here -->
+    </div>
+</div>
