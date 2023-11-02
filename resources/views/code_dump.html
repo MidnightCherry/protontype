@@ -391,3 +391,183 @@ code_dump
         </template>
     </div>
 </div>
+
+<div x-data="slider()">
+    <div x-show="slides.length > 0">
+        <div x-for="(slide, index) in slides" :key="index" x-show="index === currentSlide">
+            <!-- Display your slide content here -->
+            <img :src="slide.image_url" alt="Slide">
+        </div>
+        <button @click="prevSlide">Previous</button>
+        <button @click="nextSlide">Next</button>
+    </div>
+    <div x-show="slides.length === 0">Loading...</div>
+</div>
+
+//price variants for button at engine and location and displayed in the middle footer
+<script>
+    $(document).ready(function(){
+        var initialPrices = [86300, 88300, 82600, 81000];
+        var model2Prices = [93300, 95300, 83600, 87900];
+        var model3Prices = [101800, 103800, 97800, 96100];
+        var model4Prices = [113300, 115300, 109100, 107400];
+        //var targetHeading = $('.elementor-widget-container').find('h1');
+        var targetHeading = $('#this-is-price').find('.elementor-widget-container').find('h1');
+
+    $(".model-button").click(function(){
+        var selectedIndex = $(".dms-select").prop('selectedIndex');
+        var indexIsValid = selectedIndex >= 0 && selectedIndex < initialPrices.length;
+        var price = indexIsValid ? initialPrices[selectedIndex] : initialPrices[0]; // Default to initial price
+
+        if ($(this).attr("id") === "model2" && indexIsValid) {
+            price = model2Prices[selectedIndex];
+            } else if ($(this).attr("id") === "model3" && indexIsValid) {
+                price = model3Prices[selectedIndex];
+            } else if ($(this).attr("id") === "model4" && indexIsValid) {
+                price = model4Prices[selectedIndex];
+        }
+
+        targetHeading.text("RM " + price.toLocaleString());
+    });
+});
+
+</script>  	
+
+//use to dynamically change the link of the brochure according to the location
+<script>
+    $(document).ready(function(){
+        var initialLinks = ["https://www.proton.com/assets/ps2022/x90/pdf/pm-x90-standard.pdf", "https://www.proton.com/assets/ps2022/x90/pdf/em-x90-standard.pdf", "https://www.proton.com/assets/ps2022/x90/pdf/labuan-x90-standard.pdf", "https://www.proton.com/assets/ps2022/x90/pdf/langkawi-x90-standard.pdf"];
+        var model2Links = ["https://www.proton.com/assets/ps2022/x90/pdf/pm-x90-executive.pdf", "https://www.proton.com/assets/ps2022/x90/pdf/em-x90-executive.pdf", "https://www.proton.com/assets/ps2022/x90/pdf/labuan-x90-executive.pdf", "https://www.proton.com/assets/ps2022/x90/pdf/langkawi-x90-executive.pdf"];
+        var model3Links = ["https://www.proton.com/assets/ps2022/x90/pdf/pm-x90-premium.pdf", "https://www.proton.com/assets/ps2022/x90/pdf/em-x90-premium.pdf", "https://www.proton.com/assets/ps2022/x90/pdf/labuan-x90-premium.pdf", "https://www.proton.com/assets/ps2022/x90/pdf/langkawi-x90-premium.pdf"];
+        var model4Links = ["https://www.proton.com/assets/ps2022/x90/pdf/pm-x90-flagship.pdf", "https://www.proton.com/assets/ps2022/x90/pdf/em-x90-flagship.pdf", "https://www.proton.com/assets/ps2022/x90/pdf/labuan-x90-flagship.pdf", "https://www.proton.com/assets/ps2022/x90/pdf/langkawi-x90-flagship.pdf"];
+        var targetParagraph = $('.elementor-widget-container').find('h4');
+
+        $(".model-button").click(function(){
+            var selectedIndex = $(".dms-select").prop('selectedIndex');
+            var indexIsValid = selectedIndex >= 0 && selectedIndex < initialLinks.length;
+            var link = indexIsValid ? initialLinks[selectedIndex] : initialLinks[0]; // Default to initial link
+
+            if ($(this).attr("id") === "model2" && indexIsValid) {
+                link = model2Links[selectedIndex];
+            } else if ($(this).attr("id") === "model3" && indexIsValid) {
+                link = model3Links[selectedIndex];
+            } else if ($(this).attr("id") === "model4" && indexIsValid) {
+                link = model4Links[selectedIndex];
+            }
+
+            targetParagraph.find('a').attr('href', link).attr('target', '_blank');
+        });
+    });
+</script>
+
+//latest JS script used to toggle carousel function on WordPress
+<script>
+    $(document).ready(function() {
+        window.onload = function() {
+            let toggles, contents, wheelButton, wheelContents;
+        
+            function setupToggles() {
+                toggles = document.querySelectorAll('.toggle-button');
+                contents = document.querySelectorAll('.toggle-content');
+                wheelButton = document.querySelector('.wheel-button');
+                wheelContents = document.querySelectorAll('.wheel-content');
+        
+                toggles.forEach((toggle, i) => {
+                    if (!toggle.classList.contains('toggleIsSetup')) {
+                            toggle.classList.add('toggleIsSetup');
+                            toggle.addEventListener('click', function (e) {
+                                e.preventDefault();
+                                // Close all other content
+                                contents.forEach((content, index) => {
+                                    if (i !== index) {
+                                        toggle.classList.remove('toggleIsActive');
+                                        $(content).slideUp();
+                                    }
+                                });
+            
+                                // Toggle the clicked content
+                                toggle.classList.toggle('toggleIsActive');
+                                $(contents[i]).slideToggle();
+            
+                                if (toggle.classList.contains('toggleIsActive')) {
+                                    resizeEvent();
+                                }
+                            });
+                        }
+                });
+    
+                wheelButton.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    // Hide all toggle-content
+                    contents.forEach(content => {
+                        $(content).hide();
+                        content.classList.remove('toggleIsActive');
+                    });
+    
+                    // Show only the first wheel-content
+                    if (wheelContents.length > 0) {
+                        $(wheelContents[0]).fadeIn();
+                    }
+                });
+        
+                contents.forEach(content => {
+                    if (!content.classList.contains('toggleIsSetup')) {
+                        content.classList.add('toggleIsSetup');
+                        content.style.display = 'none';
+                    }
+                });
+    
+                wheelContents.forEach(content => {
+                    if (!content.classList.contains('wheelIsSetup')) {
+                        content.classList.add('wheelIsSetup');
+                        content.style.display = 'none';
+                    }
+                });
+            }
+        
+            function resizeEvent() {
+                setTimeout(function () {
+                    window.dispatchEvent(new Event('resize'));
+                }, 400);
+            }
+        
+            setupToggles();
+        
+            // Automatically click the first toggle button to display the first content
+            $('.toggle-button:first').click();
+        
+            $(document).on('elementor/popup/show', () => {
+                setupToggles();
+            });
+        };
+    });
+    
+    </script>
+
+
+@extends('layouts.app')
+
+@section('content')
+<div x-data="{ activeSlider: 1 }">
+    <!-- Toggle Buttons for Sliders -->
+    <div class="flex space-x-2 mb-4">
+        @foreach($sliders as $slider)
+            <button @click="activeSlider = {{ $slider->id }}"
+                :class="{ 'bg-blue-500 text-white': activeSlider === {{ $slider->id }}, 'bg-gray-200': activeSlider !== {{ $slider->id }} }"
+                class="px-4 py-2 rounded cursor-pointer">
+                Toggle Slider {{ $slider->id }}
+            </button>
+        @endforeach
+    </div>
+
+    <!-- Slider Images -->
+    @foreach($sliders as $slider)
+        <div x-show="activeSlider === {{ $slider->id }}">
+            <!-- Use $slider->images to display images for the current slider -->
+            @foreach($slider->images as $image)
+                <img src="{{ $image }}" alt="Slider Image">
+            @endforeach
+        </div>
+    @endforeach
+</div>
+@endsection

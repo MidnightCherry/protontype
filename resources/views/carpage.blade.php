@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+    <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -61,13 +61,11 @@
                 Click Me!
             </button>
         </div>
-        
             
         <div class="flex items-center justify-center h-screen">
             <div class="w-70 mt-0">
-               
+                
             </div>
         </div>
-
     </body> 
-</html>
+    </html>

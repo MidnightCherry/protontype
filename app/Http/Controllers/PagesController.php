@@ -13,4 +13,8 @@ class PagesController extends Controller
     public function car() {
         return view('carpage');
     }
+
+    public function carSelection() {
+        return view('carselection');
+    }
 }

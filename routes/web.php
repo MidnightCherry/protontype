@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PagesController;
+use App\Http\Controllers\SliderController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,6 +24,10 @@ Route::get('/', function () {
 
 Route::get('/', [PagesController::class, 'index']);
 Route::get('/car', [PagesController::class, 'car']);
+Route::get('/carselect', [PagesController::class, 'carSelection']);
+Route::get('/sliders', [SliderController::class, 'showSliders']);
+
+
 
 
 Route::get('/dashboard', function () {
