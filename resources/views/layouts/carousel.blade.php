@@ -1,37 +1,25 @@
-<div x-data="{ slide: 1 }" class="relative">
+ <div x-data="{ slide: 1, totalSlides: 4 }" class="relative flex items-center justify-center h-screen">
     <!-- Slideshow container -->
-    <div class="slideshow-container">
+    <div class="slideshow-container w-4/5">
         <!-- Full-width images with number and caption text -->
-        <div x-show="slide === 1" class="mySlides fade">
-            <div class="numbertext">1 / 4</div>
-            <img src="{{ asset('images/proton_car_png/X90/x90_Side_1_Red.png') }}" style="width:100%">
-            <!--<div class="text">Caption Text 1</div>-->
-        </div>
-        <div x-show="slide === 2" class="mySlides fade">
-            <div class="numbertext">2 / 4</div>
-            <img src="{{ asset('images/proton_car_png/X90/x90_Front_Red.png') }}" style="width:100%">
-            <!--<div class="text">Caption Text 2</div>-->
-        </div>
-        <div x-show="slide === 3" class="mySlides fade">
-            <div class="numbertext">3 / 4</div>
-            <img src="{{ asset('images/proton_car_png/X90/x90_Side_2_Red.png') }}" style="width:100%">
-            <!--<div class="text">Caption Text 3</div>-->
-        </div>
-        <div x-show="slide === 4" class="mySlides fade">
-            <div class="numbertext">4 / 4</div>
-            <img src="{{ asset('images/proton_car_png/X90/x90_Bank_Red.png') }}" style="width:100%">
-            <!--<div class="text">Caption Text 3</div>-->
-        </div>
+        <template x-for="i in totalSlides" :key="i">
+            <div x-show="slide === i" class="mySlides fade">
+                <div class="numbertext" x-text="`${i} / ${totalSlides}`"></div>
+                <img x-bind:src="`{{ asset('images/proton_car_png/X90/x90_Side_${i}_Red.png') }}`" style="width:100%">
+                <!--<div class="text">Caption Text</div>-->
+            </div>
+        </template>
         
-        <!-- Next and previous buttons -->
-        <a x-on:click="slide--" class="prev absolute top-1/2 left-4 transform -translate-y-1/2 cursor-pointer">&#10094;</a>
-        <a x-on:click="slide++" class="next absolute top-1/2 right-4 transform -translate-y-1/2 cursor-pointer">&#10095;</a>
+        
     </div>
-    
+        <!-- Next and previous buttons -->
+        <a x-on:click="slide = (slide === 1) ? totalSlides : slide - 1" class="prev absolute top-1/2 left-10 transform -translate-y-1/2 cursor-pointer">&#10094;</a>
+        <a x-on:click="slide = (slide === totalSlides) ? 1 : slide + 1" class="next absolute top-1/2 right-10 transform -translate-y-1/2 cursor-pointer">&#10095;</a>
     <!-- The dots/circles -->
     <div class="flex justify-center mt-2">
-        <span x-on:click="slide = 1" class="dot"></span>
-        <span x-on:click="slide = 2" class="dot"></span>
-        <span x-on:click="slide = 3" class="dot"></span>
+        <template x-for="i in totalSlides" :key="i">
+            <span x-on:click="slide = i" class="dot mr-2 cursor-pointer" :class="{ 'bg-gray-900': slide === i }"></span>
+        </template>
     </div>
 </div>
+

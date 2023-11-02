@@ -52,10 +52,22 @@
         </div>
 
         <!-- main content -->
-        <div>
-            {{-- @include ('layouts.carousel') --}}
+        <!-- first carousel for mainpage -->
+        <div class="relative flex flex-col items-center justify-center h-screen">
+            <div class="">
+                @include ('layouts.carousel')
+            </div>
+            <button class="bg-red-700 hover:bg-gray-700 transition duration-300 ease-in-out transform hover:scale-105 text-white font-bold py-4 px-8 rounded-full">
+                Click Me!
+            </button>
         </div>
-
+        
+            
+        <div class="flex items-center justify-center h-screen">
+            <div class="w-70 mt-0">
+               
+            </div>
+        </div>
 
     </body> 
 </html>

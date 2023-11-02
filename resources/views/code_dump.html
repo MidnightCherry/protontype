@@ -366,3 +366,28 @@ code_dump
         <!-- Dropdown menu content goes here -->
     </div>
 </div>
+
+
+<div x-data="{ slide: 1, totalSlides: 4 }" class="relative flex items-center justify-center h-screen">
+    <!-- Slideshow container -->
+    <div class="slideshow-container w-3/4">
+        <!-- Full-width images with number and caption text -->
+        <template x-for="slideNum in Array.from({ length: totalSlides }).map((_, index) => index + 1)" :key="slideNum">
+            <div x-show="slide === slideNum" class="mySlides fade">
+                <div x-text="`${slideNum} / ${totalSlides}`" class="numbertext"></div>
+                <img x-bind:src="'{{ asset('images/proton_car_png/X90/x90_Side_' + slideNum + '_Red.png') }}'" style="width:70%">
+            </div>
+        </template>
+        
+        <!-- Next and previous buttons -->
+        <a x-on:click="slide = (slide === 1) ? totalSlides : slide - 1" class="prev absolute top-1/2 left-4 transform -translate-y-1/2 cursor-pointer">&#10094;</a>
+        <a x-on:click="slide = (slide === totalSlides) ? 1 : slide + 1" class="next absolute top-1/2 right-4 transform -translate-y-1/2 cursor-pointer">&#10095;</a>
+    </div>
+    
+    <!-- The dots/circles -->
+    <div class="flex justify-center mt-2">
+        <template x-for="slideNum in Array.from({ length: totalSlides }).map((_, index) => index + 1)" :key="slideNum">
+            <span x-on:click="slide = slideNum" class="dot"></span>
+        </template>
+    </div>
+</div>
