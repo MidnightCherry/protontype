@@ -25,7 +25,7 @@ Route::get('/', function () {
 Route::get('/', [PagesController::class, 'index']);
 Route::get('/car', [PagesController::class, 'car']);
 Route::get('/carselect', [PagesController::class, 'carSelection']);
-Route::get('/sliders', [SliderController::class, 'showSliders']);
+//Route::get('/sliders', [SliderController::class, 'showSliders']);
 
 
 
